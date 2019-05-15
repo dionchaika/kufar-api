@@ -244,8 +244,9 @@ class Flat implements AdvertInterface
      */
     public function getRequest(): RequestInterface
     {
-        $uri = new Uri('https://www.kufar.by/listings/');
+        $uri = new Uri('https://www.kufar.by/react/api/cre/ad-insertion/v1/processing/insert');
         return (new RequestFactory)
-            ->createJsonRequest('POST', $uri, $this->data, [\JSON_NUMERIC_CHECK, \JSON_UNESCAPED_SLASHES, \JSON_UNESCAPED_UNICODE, \JSON_PRETTY_PRINT]);
+            ->createJsonRequest('POST', $uri, $this->data, [\JSON_NUMERIC_CHECK, \JSON_UNESCAPED_SLASHES, \JSON_UNESCAPED_UNICODE, \JSON_PRETTY_PRINT])
+            ->withHeader('X-segmentation', 'routing=web_ad_insertion;application=ad_insertion;platform=web');
     }
 }
