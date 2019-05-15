@@ -135,7 +135,6 @@ class Flat implements AdvertInterface
      * @throws \InvalidArgumentException
      */
     public function __construct(
-
         string $subject,
         int $rooms,
         string $body,
