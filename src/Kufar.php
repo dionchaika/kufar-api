@@ -373,7 +373,7 @@ class Kufar
 
         if (200 !== $response->getStatusCode()) {
             throw new RuntimeException(
-                'Error loading page: '.$uri.'!'
+                'Error uploading image!'
             );
         }
 
