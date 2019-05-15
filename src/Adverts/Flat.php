@@ -110,6 +110,53 @@ class Flat implements AdvertInterface
     ];
 
     /**
+     * @param string      $subject
+     * @param int         $rooms
+     * @param string      $body
+     * @param int         $price
+     * @param string      $currency
+     * @param int         $region
+     * @param int         $area
+     * @param string      $sity
+     * @param array       $phones
+     * @param int|null    $floor
+     * @param float|null  $size
+     * @param float|null  $sizeLivingSpace
+     * @param float|null  $sizeKitchen
+     * @param int|null    $houseType
+     * @param int|null    $bathroom
+     * @param int|null    $balcony
+     * @param int|null    $yearBuilt
+     * @param array       $images
+     * @param string|null $contactPerson
+     * @param string|null $importLink
+     */
+    public function __construct(
+        string $subject,
+        int $rooms,
+        string $body,
+        int $price,
+        string $currency,
+        int $region,
+        int $area,
+        string $sity,
+        array $phones,
+        ?int $floor = null,
+        ?float $size = null,
+        ?float $sizeLivingSpace = null,
+        ?float $sizeKitchen = null,
+        ?int $houseType = null,
+        ?int $bathroom = null,
+        ?int $balcony = null,
+        ?int $yearBuilt = null,
+        array $images = [],
+        ?string $contactPerson = null,
+        ?string $importLink = null
+    ) {
+        //
+    }
+
+    /**
      * Get the HTTP request for the flat advert.
      *
      * @return \Psr\Http\Message\RequestInterface
