@@ -508,8 +508,8 @@ class Kufar
 
         return [
 
-            'coordinates'  => implode(',', $data[0]['coordinates']),
-            'address_tags' => implode(',', $data[0]['tags'])
+            'coordinates'  => implode(',', $data['data'][0]['coordinates']),
+            'address_tags' => implode(',', $data['data'][0]['tags'])
 
         ];
     }
