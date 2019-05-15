@@ -156,7 +156,20 @@ class Flat implements AdvertInterface
         ?string $contactPerson = null,
         ?string $importLink = null
     ) {
+        if ('' === $subject) {
+            throw new InvalidArgumentException(
+                'Required field is not defined or empty: subject!'
+            );
+        }
+
         $subject = mb_substr($subject, 0, 50);
+
+        if (20 > mb_strlen($body)) {
+            throw new InvalidArgumentException(
+                'Required field is not defined or empty: body!'
+            );
+        }
+
         $body = mb_substr($body, 0, 4000);
 
         if (empty($phones)) {
