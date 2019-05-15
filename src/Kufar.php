@@ -279,7 +279,7 @@ class Kufar
         $uri = new Uri('https://www.kufar.by/listings/');
         try {
             $response = $this->client->sendRequest($this->factory->createRequest('GET', $uri));
-        } catch (ClientException $e) {
+        } catch (ClientExceptionInterface $e) {
             throw new RuntimeException($e->getMessage());
         }
 
@@ -299,7 +299,7 @@ class Kufar
         $uri = new Uri('https://www.kufar.by/react/api/login/v1/auth/signin?token_type=user');
         try {
             $response = $this->client->sendRequest($this->factory->createJsonRequest('POST', $uri, $data));
-        } catch (ClientException $e) {
+        } catch (ClientExceptionInterface $e) {
             throw new RuntimeException($e->getMessage());
         }
 
@@ -368,7 +368,7 @@ class Kufar
         $uri = new Uri('https://www2.kufar.by/image_uploader');
         try {
             $response = $this->client->sendRequest($this->factory->createFormDataRequest('POST', $uri, $formData));
-        } catch (ClientException $e) {
+        } catch (ClientExceptionInterface $e) {
             throw new RuntimeException($e->getMessage());
         }
 
