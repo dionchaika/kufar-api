@@ -172,6 +172,16 @@ class Flat implements AdvertInterface
 
         $body = mb_substr($body, 0, 4000);
 
+        if (5 < $rooms) {
+            $rooms = 5;
+        }
+
+        if (1980 > $yearBuilt) {
+            $yearBuilt = 1980;
+        } else if (2025 < $yearBuilt) {
+            $yearBuilt = 2025;
+        }
+
         if (15 < count($images)) {
             $images = array_splice($images, 15);
         }
