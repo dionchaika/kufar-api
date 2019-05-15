@@ -172,15 +172,11 @@ class Flat implements AdvertInterface
 
         $body = mb_substr($body, 0, 4000);
 
-        if (empty($phones)) {
-            throw new InvalidArgumentException(
-                'Required field is not defined or empty: phones!'
-            );
+        if (!empty($phones)) {
+            $phones = array_map(function ($phone) {
+                return preg_replace('/[^\d]/', '', $phone);
+            }, $phones);
         }
-
-        $phones = array_map(function ($phone) {
-            return preg_replace('/[^\d]/', '', $phone);
-        }, $phones);
 
         $this->data['ad']['subject']           = $subject;
         $this->data['ad']['rooms']             = $rooms;
