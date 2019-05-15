@@ -119,8 +119,7 @@ class Flat implements AdvertInterface
      * @param string      $currency
      * @param int         $region
      * @param int         $area
-     * @param string      $street
-     * @param string[]    $phones
+     * @param string      $address
      * @param int|null    $floor
      * @param float|null  $size
      * @param float|null  $sizeLivingSpace
@@ -130,6 +129,7 @@ class Flat implements AdvertInterface
      * @param int|null    $balcony
      * @param int|null    $yearBuilt
      * @param string[]    $images
+     * @param string[]    $phones
      * @param string|null $contactPerson
      * @param string|null $importLink
      * @throws \InvalidArgumentException
@@ -142,19 +142,19 @@ class Flat implements AdvertInterface
         string $currency,
         int $region,
         int $area,
-        string $street,
-        array $phones,
-        ?int $floor = null,
-        ?float $size = null,
+        string $address,
+        ?int $floor             = null,
+        ?float $size            = null,
         ?float $sizeLivingSpace = null,
-        ?float $sizeKitchen = null,
-        ?int $houseType = null,
-        ?int $bathroom = null,
-        ?int $balcony = null,
-        ?int $yearBuilt = null,
-        array $images = [],
-        ?string $contactPerson = null,
-        ?string $importLink = null
+        ?float $sizeKitchen     = null,
+        ?int $houseType         = null,
+        ?int $bathroom          = null,
+        ?int $balcony           = null,
+        ?int $yearBuilt         = null,
+        array $images           = [],
+        array $phones           = [],
+        ?string $contactPerson  = null,
+        ?string $importLink     = null
     ) {
         if ('' === $subject) {
             throw new InvalidArgumentException(
@@ -189,6 +189,7 @@ class Flat implements AdvertInterface
         $this->data['ad']['currency']          = $currency;
         $this->data['ad']['region']            = $region;
         $this->data['ad']['area']              = $area;
+        $this->data['ad']['address']           = $address;
         $this->data['ad']['phone']             = implode(',', $phones);
         $this->data['ad']['floor']             = $floor;
         $this->data['ad']['size']              = $size;
@@ -200,6 +201,46 @@ class Flat implements AdvertInterface
         $this->data['ad']['year_built']        = $yearBuilt;
         $this->data['ad']['contact_person']    = $contactPerson;
         $this->data['ad']['import_link']       = $importLink;
+    }
+
+    /**
+     * Set an account info.
+     *
+     * @param mixed[] $accountInfo
+     * @return self
+     */
+    public function setAccountInfo(array $accountInfo): self
+    {
+        $this->data['ad']['name']            = $accountInfo['name'];
+        $this->data['ad']['email']           = $accountInfo['email'];
+        $this->data['ad']['company_address'] = $accountInfo['company_address'];
+        $this->data['ad']['vat_number']      = $accountInfo['vat_number'];
+        $this->data['ad']['company_number']  = $accountInfo['company_number'];
+        $this->data['ad']['company_ad']      = $accountInfo['company_ad'];
+
+        if (null === $this->data['ad']['phone']) {
+            $this->data['ad']['phone'] = $accountInfo['phone'];
+        }
+
+        if (null === $this->data['ad']['contact_person']) {
+            $this->data['ad']['contact_person'] = $accountInfo['contact_person'];
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set an address info.
+     *
+     * @param array $addressInfo
+     * @return self
+     */
+    public function setAddressInfo(array $addressInfo): self
+    {
+        $this->data['ad']['coordinates'] = $addressInfo['coordinates'];
+        $this->data['ad']['address_tags'] = $addressInfo['address_tags'];
+
+        return $this;
     }
 
     /**
