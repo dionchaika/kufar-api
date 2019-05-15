@@ -16,7 +16,7 @@ use Psr\Http\Client\ClientExceptionInterface;
 class Kufar
 {
     /**
-     * The address region.
+     * The address region select.
      */
     const REGION = [
 
@@ -31,7 +31,7 @@ class Kufar
     ];
 
     /**
-     * The address area.
+     * The address area select.
      */
     const AREA = [
 
