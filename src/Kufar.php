@@ -11,8 +11,7 @@ use Dionchaika\Http\Factory\RequestFactory;
 use Psr\Http\Client\ClientExceptionInterface;
 
 /**
- * The API class
- * for https://www.kufar.by/listings/
+ * The API class www.kufar.by.
  */
 class Kufar
 {
