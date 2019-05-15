@@ -184,7 +184,6 @@ class Flat implements AdvertInterface
         $this->data['ad']['region']            = $region;
         $this->data['ad']['area']              = $area;
         $this->data['ad']['address']           = $address;
-        $this->data['ad']['phone']             = implode(',', $phones);
         $this->data['ad']['floor']             = $floor;
         $this->data['ad']['size']              = $size;
         $this->data['ad']['size_living_space'] = $sizeLivingSpace;
@@ -193,6 +192,8 @@ class Flat implements AdvertInterface
         $this->data['ad']['bathroom']          = $bathroom;
         $this->data['ad']['balcony']           = $balcony;
         $this->data['ad']['year_built']        = $yearBuilt;
+        $this->data['ad']['images']            = $images;
+        $this->data['ad']['phone']             = implode(',', $phones);
         $this->data['ad']['contact_person']    = $contactPerson;
         $this->data['ad']['import_link']       = $importLink;
     }
