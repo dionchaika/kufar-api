@@ -74,7 +74,7 @@ class Flat implements AdvertInterface
             'is_new_image'      => [true],
             'language'          => 'ru',
             'subject'           => null,
-            'category'          => 1010,
+            'category'          => '1010',
             'type'              => 'sell',
             'rooms'             => null,
             'floor'             => null,
@@ -85,7 +85,7 @@ class Flat implements AdvertInterface
             'bathroom'          => null,
             'balcony'           => null,
             'year_built'        => null,
-            'condition'         => 1,
+            'condition'         => '1',
             'body'              => null,
             'price'             => null,
             'currency'          => null,
@@ -103,7 +103,7 @@ class Flat implements AdvertInterface
             'company_ad'        => null,
             'coordinates'       => null,
             'address_tags'      => null,
-            'remuneration_type' => 1,
+            'remuneration_type' => '1',
             'images'            => [],
             'delivery'          => null
 
@@ -262,7 +262,7 @@ class Flat implements AdvertInterface
 
         $uri = new Uri('https://www.kufar.by/react/api/cre/ad-insertion/v1/processing/insert');
         return (new RequestFactory)
-            ->createJsonRequest('POST', $uri, $data, [\JSON_NUMERIC_CHECK, \JSON_UNESCAPED_SLASHES, \JSON_UNESCAPED_UNICODE, \JSON_PRETTY_PRINT])
+            ->createJsonRequest('POST', $uri, $data, [\JSON_UNESCAPED_SLASHES, \JSON_UNESCAPED_UNICODE, \JSON_PRETTY_PRINT])
             ->withHeader('X-segmentation', 'routing=web_ad_insertion;application=ad_insertion;platform=web');
     }
 }
