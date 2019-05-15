@@ -160,7 +160,7 @@ class Flat implements AdvertInterface
         $body = mb_substr($body, 0, 4000);
 
         if (empty($phones)) {
-            throw InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'Required field is not defined or empty: phones!'
             );
         }
