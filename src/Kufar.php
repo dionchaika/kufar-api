@@ -330,14 +330,42 @@ class Kufar
      *          // On failed:
      *          [
      *
+     *              'code'    => 'ADINS0001',
+     *              'message' => 'ad validation failed'
+     *              'details' => [
      *
+     *                  'fields' => [
+     *
+     *                      'rooms' => [
+     *
+     *                          'message'      => 'ERROR_CONTENT_INVALID',
+     *                          'translations' => [
+     *
+     *                              'ru' => 'Введите корректное значение',
+     *                              'by' => 'Увядзіце карэктнае значэнне'
+     *
+     *                          ]
+     *
+     *                      ]
+     *
+     *                  ]
+     *
+     *              ],
+     *              'http' => [
+     *
+     *                  'message' => 'Unprocessable Entity',
+     *                  'code'    => 422
+     *
+     *              ]
      *
      *          ]
      *
      *          // On success:
      *          [
      *
-     *
+     *              'ad_id'        => 12345678,
+     *              'paycode'      => 123456789,
+     *              'pending_slot' => null
      *
      *          ]
      *      </code>
