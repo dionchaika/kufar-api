@@ -325,12 +325,29 @@ class Kufar
     /**
      * Post an advert.
      *
+     * Return data example:
+     *      <code>
+     *          // On failed:
+     *          [
+     *
+     *
+     *
+     *          ]
+     *
+     *          // On success:
+     *          [
+     *
+     *
+     *
+     *          ]
+     *      </code>
+     *
      * @param \API\Kufar\AdvertInterface $advert
-     * @return void
+     * @return mixed[]
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
-    public function postAdvert(AdvertInterface $advert): void
+    public function postAdvert(AdvertInterface $advert): array
     {
         if (!$this->loggedIn) {
             throw new RuntimeException(
@@ -357,7 +374,7 @@ class Kufar
             throw new RuntimeException($e->getMessage());
         }
 
-        echo $response->getBody();
+        return json_decode($response->getBody(), \JSON_OBJECT_AS_ARRAY);
     }
 
     /**

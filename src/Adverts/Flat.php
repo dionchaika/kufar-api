@@ -257,6 +257,86 @@ class Flat implements AdvertInterface
     }
 
     /**
+     * Find the house type by name.
+     *
+     * @param string $houseTypeName
+     * @return int
+     * @throws \InvalidArgumentException
+     */
+    public function findHouseTypeByName(string $houseTypeName): int
+    {
+        foreach (self::HOUSE_TYPE as $key => $value) {
+            if (preg_match('/'.$houseTypeName.'/i', $value)) {
+                return $key;
+            }
+        }
+
+        throw new InvalidArgumentException(
+            'Undefined house type name: '.$houseTypeName.'!'
+        );
+    }
+
+    /**
+     * Find the bathroom type by name.
+     *
+     * @param string $bathroomTypeName
+     * @return int
+     * @throws \InvalidArgumentException
+     */
+    public function findBathroomTypeByName(string $bathroomTypeName): int
+    {
+        foreach (self::BATHROOM_TYPE as $key => $value) {
+            if (preg_match('/'.$bathroomTypeName.'/i', $value)) {
+                return $key;
+            }
+        }
+
+        throw new InvalidArgumentException(
+            'Undefined bathroom type name: '.$bathroomTypeName.'!'
+        );
+    }
+
+    /**
+     * Find the balcony type by name.
+     *
+     * @param string $balconyTypeName
+     * @return int
+     * @throws \InvalidArgumentException
+     */
+    public function findBalconyTypeByName(string $balconyTypeName): int
+    {
+        foreach (self::BALCONY_TYPE as $key => $value) {
+            if (preg_match('/'.$balconyTypeName.'/i', $value)) {
+                return $key;
+            }
+        }
+
+        throw new InvalidArgumentException(
+            'Undefined balcony type name: '.$balconyTypeName.'!'
+        );
+    }
+
+    /**
+     * Find the currency type by name.
+     *
+     * @param string $currencyTypeName
+     * @return int
+     * @throws \InvalidArgumentException
+     */
+    public function findCurrencyTypeByName(string $currencyTypeName): int
+    {
+        foreach (self::CURRENCY_TYPE as $key => $value) {
+            if (preg_match('/'.$currencyTypeName.'/i', $value)) {
+                return $key;
+            }
+        }
+
+        throw new InvalidArgumentException(
+            'Undefined currency type name: '.$currencyTypeName.'!'
+        );
+    }
+
+    /**
      * Get the HTTP request for the flat advert.
      *
      * @return \Psr\Http\Message\RequestInterface
