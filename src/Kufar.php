@@ -377,7 +377,7 @@ class Kufar
             );
         }
 
-        return json_decode($response->getBody(), \JSON_OBJECT_AS_ARRAY);
+        return json_decode($response->getBody(), \JSON_OBJECT_AS_ARRAY)[0];
     }
 
     /**
