@@ -450,8 +450,8 @@ class Kufar
      *      <code>
      *          [
      *
-     *              'coordinates'    => '52.085926,23.7038141',
-     *              'img_link'       => 'o-brestskaja-oblast,o-brestskaja-oblast-c-brest'
+     *              'coordinates' => '52.085926,23.7038141',
+     *              'img_link'    => 'o-brestskaja-oblast,o-brestskaja-oblast-c-brest'
      *
      *          ]
      *      </code>
@@ -512,5 +512,51 @@ class Kufar
             'address_tags' => implode(',', $data['data'][0]['tags'])
 
         ];
+    }
+
+    /**
+     * Find the address region by name.
+     *
+     * @param string $regionName
+     * @return int
+     * @throws \InvalidArgumentException
+     */
+    public function findRegionByName(string $regionName): int
+    {
+        foreach (self::REGION as $key => $value) {
+            if (preg_match('/'.$regionName.'/i', $value)) {
+                return $key;
+            }
+        }
+
+        throw new InvalidArgumentException(
+            'Undefined region name: '.$regionName.'!'
+        );
+    }
+
+    /**
+     * Find the address area by name.
+     *
+     * @param string $areaName
+     * @return int
+     * @throws \InvalidArgumentException
+     */
+    public function findAreaByName(int $region, string $areaName): int
+    {
+        if (!in_array($region, array_keys(self::AREA))) {
+            throw new InvalidArgumentException(
+                'Invalid region!'
+            );
+        }
+
+        foreach (self::AREA[$region] as $key => $value) {
+            if (preg_match('/'.$areaName.'/i', $value)) {
+                return $key;
+            }
+        }
+
+        throw new InvalidArgumentException(
+            'Undefined area name: '.$areaName.'!'
+        );
     }
 }
