@@ -237,7 +237,7 @@ class Flat implements AdvertInterface
      */
     public function setAddressInfo(array $addressInfo): self
     {
-        $this->data['ad']['coordinates'] = $addressInfo['coordinates'];
+        $this->data['ad']['coordinates']  = $addressInfo['coordinates'];
         $this->data['ad']['address_tags'] = $addressInfo['address_tags'];
 
         return $this;
