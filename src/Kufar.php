@@ -450,8 +450,8 @@ class Kufar
      *      <code>
      *          [
      *
-     *              'coordinates' => '52.085926,23.7038141',
-     *              'img_link'    => 'o-brestskaja-oblast,o-brestskaja-oblast-c-brest'
+     *              'coordinates'  => '52.085926,23.7038141',
+     *              'address_tags' => 'o-brestskaja-oblast,o-brestskaja-oblast-c-brest'
      *
      *          ]
      *      </code>
