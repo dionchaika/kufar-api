@@ -458,12 +458,12 @@ class Kufar
      *
      * @param string $region
      * @param string $area
-     * @param string $query
+     * @param string $address
      * @return mixed[]
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
-    public function getAddressInfo(string $region, string $area, string $query): array
+    public function getAddressInfo(string $region, string $area, string $address): array
     {
         if (!$this->loggedIn) {
             throw new RuntimeException(
@@ -491,7 +491,7 @@ class Kufar
         }
 
         $uri = (new Uri('https://geocoder.kufar.by/search/get_suggestions'))
-            ->withQuery('city='.urlencode($area).'&query='.urlencode($query).'&region='.urlencode($region));
+            ->withQuery('city='.urlencode($area).'&query='.urlencode($address).'&region='.urlencode($region));
         try {
             $response = $this->client->sendRequest($this->factory->createRequest('GET', $uri));
         } catch (ClientExceptionInterface $e) {
