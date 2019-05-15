@@ -176,7 +176,7 @@ class Flat implements AdvertInterface
         $this->data['ad']['currency']          = $currency;
         $this->data['ad']['region']            = $region;
         $this->data['ad']['area']              = $area;
-        $this->data['ad']['phones']            = implode(',', $phones);
+        $this->data['ad']['phone']             = implode(',', $phones);
         $this->data['ad']['floor']             = $floor;
         $this->data['ad']['size']              = $size;
         $this->data['ad']['size_living_space'] = $sizeLivingSpace;
