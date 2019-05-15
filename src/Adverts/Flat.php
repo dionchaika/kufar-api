@@ -3,6 +3,7 @@
 namespace API\Kufar\Adverts;
 
 use Dionchaika\Http\Uri;
+use InvalidArgumentException;
 use API\Kufar\AdvertInterface;
 use Psr\Http\Message\RequestInterface;
 use Dionchaika\Http\Factory\RequestFactory;
@@ -72,6 +73,7 @@ class Flat implements AdvertInterface
 
             'is_new_image'      => [true],
             'language'          => 'ru',
+            'subject'           => null,
             'category'          => 1010,
             'type'              => 'sell',
             'rooms'             => null,
@@ -98,7 +100,7 @@ class Flat implements AdvertInterface
             'import_link'       => null,
             'vat_number'        => null,
             'company_number'    => null,
-            'company_ad'        => 1,
+            'company_ad'        => null,
             'coordinates'       => null,
             'address_tags'      => null,
             'remuneration_type' => 1,
@@ -118,7 +120,7 @@ class Flat implements AdvertInterface
      * @param int         $region
      * @param int         $area
      * @param string      $sity
-     * @param array       $phones
+     * @param string[]    $phones
      * @param int|null    $floor
      * @param float|null  $size
      * @param float|null  $sizeLivingSpace
@@ -127,11 +129,13 @@ class Flat implements AdvertInterface
      * @param int|null    $bathroom
      * @param int|null    $balcony
      * @param int|null    $yearBuilt
-     * @param array       $images
+     * @param string[]    $images
      * @param string|null $contactPerson
      * @param string|null $importLink
+     * @throws \InvalidArgumentException
      */
     public function __construct(
+
         string $subject,
         int $rooms,
         string $body,
@@ -153,7 +157,37 @@ class Flat implements AdvertInterface
         ?string $contactPerson = null,
         ?string $importLink = null
     ) {
-        //
+        $subject = mb_substr($subject, 0, 50);
+        $body = mb_substr($body, 0, 4000);
+
+        if (empty($phones)) {
+            throw InvalidArgumentException(
+                'Required field is not defined or empty: phones!'
+            );
+        }
+
+        $phones = array_map(function ($phone) {
+            return preg_replace('/[^\d]/', '', $phone);
+        }, $phones);
+
+        $this->data['ad']['subject']           = $subject;
+        $this->data['ad']['rooms']             = $rooms;
+        $this->data['ad']['body']              = $body;
+        $this->data['ad']['price']             = $price;
+        $this->data['ad']['currency']          = $currency;
+        $this->data['ad']['region']            = $region;
+        $this->data['ad']['area']              = $area;
+        $this->data['ad']['phones']            = implode(',', $phones);
+        $this->data['ad']['floor']             = $floor;
+        $this->data['ad']['size']              = $size;
+        $this->data['ad']['size_living_space'] = $sizeLivingSpace;
+        $this->data['ad']['size_kitchen']      = $sizeKitchen;
+        $this->data['ad']['house_type']        = $houseType;
+        $this->data['ad']['bathroom']          = $bathroom;
+        $this->data['ad']['balcony']           = $balcony;
+        $this->data['ad']['year_built']        = $yearBuilt;
+        $this->data['ad']['contact_person']    = $contactPerson;
+        $this->data['ad']['import_link']       = $importLink;
     }
 
     /**
