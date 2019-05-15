@@ -323,6 +323,64 @@ class Kufar
     }
 
     /**
+     * Upload an image.
+     *
+     * Return data example:
+     *      <code>
+     *          [
+     *
+     *              'index'    => 0,
+     *              'img_link' => '3110656605.jpg'
+     *
+     *          ]
+     *      </code>
+     *
+     * @param string $filename
+     * @return mixed[]
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     */
+    public function uploadImage(string $filename): array
+    {
+        if (!$this->loggedIn) {
+            throw new RuntimeException(
+                'Client is not logged in!'
+            );
+        }
+
+        if (!file_exists($filename)) {
+            throw new InvalidArgumentException(
+                'File does not exists: '.$filename.'!'
+            );
+        }
+
+        if (10485760 < filesize($filename)) {
+            throw new InvalidArgumentException(
+                'File size can not be grather than 10 MB!'
+            );
+        }
+
+        $formData = (new FormData)
+            ->append('images[]', '@'.$filename)
+            ->append('application', 'ad_insertion');
+
+        $uri = new Uri('https://www2.kufar.by/image_uploader');
+        try {
+            $response = $this->client->sendRequest($this->factory->createFormDataRequest('POST', $uri, $formData));
+        } catch (ClientExceptionInterface $e) {
+            throw new RuntimeException($e->getMessage());
+        }
+
+        if (200 !== $response->getStatusCode()) {
+            throw new RuntimeException(
+                'Error uploading image!'
+            );
+        }
+
+        return json_decode($response->getBody(), \JSON_OBJECT_AS_ARRAY);
+    }
+
+    /**
      * Get the account info.
      *
      * Return data example:
@@ -379,64 +437,6 @@ class Kufar
         if (200 !== $response->getStatusCode()) {
             throw new RuntimeException(
                 'Error getting account info!'
-            );
-        }
-
-        return json_decode($response->getBody(), \JSON_OBJECT_AS_ARRAY);
-    }
-
-    /**
-     * Upload an image.
-     *
-     * Return data example:
-     *      <code>
-     *          [
-     *
-     *              'index'    => 0,
-     *              'img_link' => '3110656605.jpg'
-     *
-     *          ]
-     *      </code>
-     *
-     * @param string $filename
-     * @return mixed[]
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public function uploadImage(string $filename): array
-    {
-        if (!$this->loggedIn) {
-            throw new RuntimeException(
-                'Client is not logged in!'
-            );
-        }
-
-        if (!file_exists($filename)) {
-            throw new InvalidArgumentException(
-                'File does not exists: '.$filename.'!'
-            );
-        }
-
-        if (10485760 < filesize($filename)) {
-            throw new InvalidArgumentException(
-                'File size can not be grather than 10 MB!'
-            );
-        }
-
-        $formData = (new FormData)
-            ->append('images[]', '@'.$filename)
-            ->append('application', 'ad_insertion');
-
-        $uri = new Uri('https://www2.kufar.by/image_uploader');
-        try {
-            $response = $this->client->sendRequest($this->factory->createFormDataRequest('POST', $uri, $formData));
-        } catch (ClientExceptionInterface $e) {
-            throw new RuntimeException($e->getMessage());
-        }
-
-        if (200 !== $response->getStatusCode()) {
-            throw new RuntimeException(
-                'Error uploading image!'
             );
         }
 
