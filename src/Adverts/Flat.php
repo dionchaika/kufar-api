@@ -1,12 +1,16 @@
 <?php
 
-namespace API\Kufar;
+namespace API\Kufar\Adverts;
+
+use Dionchaika\Http\Uri;
+use API\Kufar\AdvertInterface;
+use Psr\Http\Message\RequestInterface;
+use Dionchaika\Http\Factory\RequestFactory;
 
 /**
- * The flat
- * request body model.
+ * The flat advert class.
  */
-class Flat
+class Flat implements AdvertInterface
 {
     /**
      * The house type select.
@@ -22,9 +26,9 @@ class Flat
     ];
 
     /**
-     * The bathroom select.
+     * The bathroom type select.
      */
-    const BATHROOM = [
+    const BATHROOM_TYPE = [
 
         1 => 'Раздельный',
         2 => 'Совмещенный',
@@ -34,9 +38,9 @@ class Flat
     ];
 
     /**
-     * The balcony select.
+     * The balcony type select.
      */
-    const BALCONY = [
+    const BALCONY_TYPE = [
 
         1 => 'Есть',
         2 => 'Нет',
@@ -46,9 +50,9 @@ class Flat
     ];
 
     /**
-     * The currency select.
+     * The currency type select.
      */
-    const CURRENCY = [
+    const CURRENCY_TYPE = [
 
         'BYR' => 'р.',
         'USD' => '$',
@@ -57,7 +61,8 @@ class Flat
     ];
 
     /**
-     * The array of data.
+     * The array
+     * of flat advert data.
      *
      * @var mixed[]
      */
@@ -103,4 +108,16 @@ class Flat
         ]
 
     ];
+
+    /**
+     * Get the HTTP request for the flat advert.
+     *
+     * @return \Psr\Http\Message\RequestInterface
+     */
+    public function getRequest(): RequestInterface
+    {
+        $uri = new Uri('https://www.kufar.by/listings/');
+        return (new RequestFactory)
+            ->createJsonRequest('POST', $uri, $this->data);
+    }
 }
