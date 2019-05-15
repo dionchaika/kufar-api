@@ -323,6 +323,44 @@ class Kufar
     }
 
     /**
+     * Post an advert.
+     *
+     * @param \API\Kufar\AdvertInterface $advert
+     * @return void
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     */
+    public function postAdvert(AdvertInterface $advert): void
+    {
+        if (!$this->loggedIn) {
+            throw new RuntimeException(
+                'Client is not logged in!'
+            );
+        }
+
+        $uri = new Uri('https://www.kufar.by/ain/create');
+        try {
+            $response = $this->client->sendRequest($this->factory->createRequest('GET', $uri));
+        } catch (ClientExceptionInterface $e) {
+            throw new RuntimeException($e->getMessage());
+        }
+
+        if (200 !== $response->getStatusCode()) {
+            throw new RuntimeException(
+                'Error loading page: '.$uri.'!'
+            );
+        }
+
+        try {
+            $response = $this->client->sendRequest($advert->getRequest());
+        } catch (ClientExceptionInterface $e) {
+            throw new RuntimeException($e->getMessage());
+        }
+
+        echo $response->getBody();
+    }
+
+    /**
      * Upload an image.
      *
      * Return data example:
