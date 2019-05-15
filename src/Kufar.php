@@ -331,7 +331,7 @@ class Kufar
      *          [
      *
      *              'code'    => 'ADINS0001',
-     *              'message' => 'ad validation failed'
+     *              'message' => 'ad validation failed',
      *              'details' => [
      *
      *                  'fields' => [
