@@ -1,0 +1,10 @@
+{
+    "autoload": {
+        "psr-4": {
+            "API\\Kufar\\": "src/"
+        }
+    },
+    "require": {
+        "dionchaika/http": "dev-master"
+    }
+}
