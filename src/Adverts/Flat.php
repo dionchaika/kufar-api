@@ -172,26 +172,34 @@ class Flat implements AdvertInterface
 
         $body = mb_substr($body, 0, 4000);
 
+        if (15 < count($images)) {
+            $images = array_splice($images, 15);
+        }
+
         $phones = array_map(function ($phone) {
             return preg_replace('/[^\d]/', '', $phone);
         }, $phones);
 
+        if (3 < count($phones)) {
+            $phones = array_splice($phones, 3);
+        }
+
         $this->data['ad']['subject']           = $subject;
-        $this->data['ad']['rooms']             = $rooms;
+        $this->data['ad']['rooms']             = (string)$rooms;
         $this->data['ad']['body']              = $body;
-        $this->data['ad']['price']             = $price;
+        $this->data['ad']['price']             = (string)$price;
         $this->data['ad']['currency']          = $currency;
-        $this->data['ad']['region']            = $region;
-        $this->data['ad']['area']              = $area;
+        $this->data['ad']['region']            = (string)$region;
+        $this->data['ad']['area']              = (string)$area;
         $this->data['ad']['address']           = $address;
-        $this->data['ad']['floor']             = $floor;
-        $this->data['ad']['size']              = $size;
-        $this->data['ad']['size_living_space'] = $sizeLivingSpace;
-        $this->data['ad']['size_kitchen']      = $sizeKitchen;
-        $this->data['ad']['house_type']        = $houseType;
-        $this->data['ad']['bathroom']          = $bathroom;
-        $this->data['ad']['balcony']           = $balcony;
-        $this->data['ad']['year_built']        = $yearBuilt;
+        $this->data['ad']['floor']             = (string)$floor;
+        $this->data['ad']['size']              = (string)$size;
+        $this->data['ad']['size_living_space'] = (string)$sizeLivingSpace;
+        $this->data['ad']['size_kitchen']      = (string)$sizeKitchen;
+        $this->data['ad']['house_type']        = (string)$houseType;
+        $this->data['ad']['bathroom']          = (string)$bathroom;
+        $this->data['ad']['balcony']           = (string)$balcony;
+        $this->data['ad']['year_built']        = (string)$yearBuilt;
         $this->data['ad']['images']            = $images;
         $this->data['ad']['phone']             = implode(',', $phones);
         $this->data['ad']['contact_person']    = $contactPerson;
@@ -245,9 +253,16 @@ class Flat implements AdvertInterface
      */
     public function getRequest(): RequestInterface
     {
+        $data = $this->data;
+        foreach ($data['ad'] as $key => $value) {
+            if (null === $value) {
+                unset($data['ad'][$key]);
+            }
+        }
+
         $uri = new Uri('https://www.kufar.by/react/api/cre/ad-insertion/v1/processing/insert');
         return (new RequestFactory)
-            ->createJsonRequest('POST', $uri, $this->data, [\JSON_NUMERIC_CHECK, \JSON_UNESCAPED_SLASHES, \JSON_UNESCAPED_UNICODE, \JSON_PRETTY_PRINT])
+            ->createJsonRequest('POST', $uri, $data, [\JSON_NUMERIC_CHECK, \JSON_UNESCAPED_SLASHES, \JSON_UNESCAPED_UNICODE, \JSON_PRETTY_PRINT])
             ->withHeader('X-segmentation', 'routing=web_ad_insertion;application=ad_insertion;platform=web');
     }
 }

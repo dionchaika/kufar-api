@@ -256,8 +256,9 @@ class Kufar
 
             'redirects' => true,
 
-            'debug'      => $debug,
-            'debug_file' => $debugFile
+            'debug'              => $debug,
+            'debug_file'         => $debugFile,
+            'debug_request_body' => true
 
         ];
 

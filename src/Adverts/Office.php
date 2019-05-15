@@ -35,8 +35,16 @@ class Office implements AdvertInterface
      */
     public function getRequest(): RequestInterface
     {
-        $uri = new Uri('https://www.kufar.by/listings/');
+        $data = $this->data;
+        foreach ($data['ad'] as $key => $value) {
+            if (null === $value) {
+                unset($data['ad'][$key]);
+            }
+        }
+
+        $uri = new Uri('https://www.kufar.by/react/api/cre/ad-insertion/v1/processing/insert');
         return (new RequestFactory)
-            ->createJsonRequest('POST', $uri, $this->data);
+            ->createJsonRequest('POST', $uri, $data, [\JSON_NUMERIC_CHECK, \JSON_UNESCAPED_SLASHES, \JSON_UNESCAPED_UNICODE, \JSON_PRETTY_PRINT])
+            ->withHeader('X-segmentation', 'routing=web_ad_insertion;application=ad_insertion;platform=web');
     }
 }
