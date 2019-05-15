@@ -323,6 +323,69 @@ class Kufar
     }
 
     /**
+     * Get the account info.
+     *
+     * Return data example:
+     *      <code>
+     *          [
+     *
+     *              'account_id'             => '',
+     *              'area'                   => '',
+     *              'company_ad'             => '',
+     *              'company_address'        => '',
+     *              'company_number'         => '',
+     *              'contact_person'         => '',
+     *              'email'                  => '',
+     *              'name'                   => '',
+     *              'origin'                 => '',
+     *              'partner'                => '',
+     *              'partner_link'           => '',
+     *              'partner_supervisor_ids' => '',
+     *              'partner_text'           => '',
+     *              'partner_type'           => '',
+     *              'phone'                  => '',
+     *              'phone_hidden'           => '',
+     *              'profile_image'          => '',
+     *              'region'                 => '',
+     *              'sales_email'            => '',
+     *              'shop_address'           => '',
+     *              'should_verify_phone'    => '',
+     *              'token'                  => '',
+     *              'vat_number'             => '',
+     *              'verified_phone'         => '',
+     *              'web_shop_link'          => ''
+     *
+     *          ]
+     *      </code>
+     *
+     * @return mixed[]
+     * @throws \RuntimeException
+     */
+    public function getAccountInfo(): array
+    {
+        if (!$this->loggedIn) {
+            throw new RuntimeException(
+                'Client is not logged in!'
+            );
+        }
+
+        $uri = new Uri('https://www.kufar.by/react/api/user?apiName=account_info');
+        try {
+            $response = $this->client->sendRequest($this->factory->createRequest('GET', $uri));
+        } catch (ClientExceptionInterface $e) {
+            throw new RuntimeException($e->getMessage());
+        }
+
+        if (200 !== $response->getStatusCode()) {
+            throw new RuntimeException(
+                'Error getting account info!'
+            );
+        }
+
+        return json_decode($response->getBody(), \JSON_OBJECT_AS_ARRAY);
+    }
+
+    /**
      * Upload an image.
      *
      * Return data example:
