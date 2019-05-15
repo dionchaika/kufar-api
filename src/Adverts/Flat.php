@@ -211,11 +211,6 @@ class Flat implements AdvertInterface
     {
         $uri = new Uri('https://www.kufar.by/listings/');
         return (new RequestFactory)
-            ->createJsonRequest('POST', $uri, $this->data, [
-                JSON_NUMERIC_CHECK,
-                JSON_UNESCAPED_SLASHES,
-                JSON_UNESCAPED_UNICODE,
-                JSON_PRETTY_PRINT
-            ]);
+            ->createJsonRequest('POST', $uri, $this->data, [\JSON_NUMERIC_CHECK, \JSON_UNESCAPED_SLASHES, \JSON_UNESCAPED_UNICODE, \JSON_PRETTY_PRINT]);
     }
 }
