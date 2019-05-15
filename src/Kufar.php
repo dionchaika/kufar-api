@@ -537,6 +537,7 @@ class Kufar
     /**
      * Find the address area by name.
      *
+     * @param int    $region
      * @param string $areaName
      * @return int
      * @throws \InvalidArgumentException
