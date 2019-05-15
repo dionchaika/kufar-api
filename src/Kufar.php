@@ -356,7 +356,7 @@ class Kufar
 
         if (10485760 < filesize($filename)) {
             throw new InvalidArgumentException(
-                'File size can not be grather than 10 MB!'
+                'File size can not be greater than 10 MB!'
             );
         }
 
