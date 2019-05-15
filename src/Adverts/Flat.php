@@ -119,7 +119,7 @@ class Flat implements AdvertInterface
      * @param string      $currency
      * @param int         $region
      * @param int         $area
-     * @param string      $sity
+     * @param string      $street
      * @param string[]    $phones
      * @param int|null    $floor
      * @param float|null  $size
@@ -142,7 +142,7 @@ class Flat implements AdvertInterface
         string $currency,
         int $region,
         int $area,
-        string $sity,
+        string $street,
         array $phones,
         ?int $floor = null,
         ?float $size = null,
