@@ -530,7 +530,7 @@ class Kufar
         }
 
         throw new InvalidArgumentException(
-            'Undefined region name: '.$regionName.'!'
+            'Undefined address region name: '.$regionName.'!'
         );
     }
 
@@ -556,7 +556,7 @@ class Kufar
         }
 
         throw new InvalidArgumentException(
-            'Undefined area name: '.$areaName.'!'
+            'Undefined address area name: '.$areaName.'!'
         );
     }
 }
