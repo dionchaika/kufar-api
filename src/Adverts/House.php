@@ -30,6 +30,17 @@ class House implements AdvertInterface
     ];
 
     /**
+     * The currency type select.
+     */
+    const CURRENCY_TYPE = [
+
+        'BYR' => 'р.',
+        'USD' => '$',
+        'EUR' => '€'
+
+    ];
+
+    /**
      * The array
      * of house advert data.
      *
@@ -221,6 +232,26 @@ class House implements AdvertInterface
 
         throw new InvalidArgumentException(
             'Undefined wall material type name: '.$wallMaterialTypeName.'!'
+        );
+    }
+
+    /**
+     * Find the currency type by name.
+     *
+     * @param string $currencyTypeName
+     * @return int
+     * @throws \InvalidArgumentException
+     */
+    public static function findCurrencyTypeByName(string $currencyTypeName): int
+    {
+        foreach (static::CURRENCY_TYPE as $key => $value) {
+            if (preg_match('/'.$currencyTypeName.'/i', $value)) {
+                return $key;
+            }
+        }
+
+        throw new InvalidArgumentException(
+            'Undefined currency type name: '.$currencyTypeName.'!'
         );
     }
 
