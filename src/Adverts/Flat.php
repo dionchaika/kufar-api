@@ -2,6 +2,7 @@
 
 namespace API\Kufar\Adverts;
 
+use API\Kufar\Finder;
 use Dionchaika\Http\Uri;
 use InvalidArgumentException;
 use API\Kufar\AdvertInterface;
@@ -221,19 +222,10 @@ class Flat implements AdvertInterface
      *
      * @param string $houseTypeName
      * @return int
-     * @throws \InvalidArgumentException
      */
     public static function findHouseTypeByName(string $houseTypeName): int
     {
-        foreach (static::HOUSE_TYPE as $key => $value) {
-            if (preg_match('/'.$houseTypeName.'/i', $value)) {
-                return $key;
-            }
-        }
-
-        throw new InvalidArgumentException(
-            'Undefined house type name: '.$houseTypeName.'!'
-        );
+        return Finder::find($houseTypeName, static::HOUSE_TYPE);
     }
 
     /**
@@ -241,19 +233,10 @@ class Flat implements AdvertInterface
      *
      * @param string $bathroomTypeName
      * @return int
-     * @throws \InvalidArgumentException
      */
     public static function findBathroomTypeByName(string $bathroomTypeName): int
     {
-        foreach (static::BATHROOM_TYPE as $key => $value) {
-            if (preg_match('/'.$bathroomTypeName.'/i', $value)) {
-                return $key;
-            }
-        }
-
-        throw new InvalidArgumentException(
-            'Undefined bathroom type name: '.$bathroomTypeName.'!'
-        );
+        return Finder::find($bathroomTypeName, static::BATHROOM_TYPE);
     }
 
     /**
@@ -261,19 +244,10 @@ class Flat implements AdvertInterface
      *
      * @param string $balconyTypeName
      * @return int
-     * @throws \InvalidArgumentException
      */
     public static function findBalconyTypeByName(string $balconyTypeName): int
     {
-        foreach (static::BALCONY_TYPE as $key => $value) {
-            if (preg_match('/'.$balconyTypeName.'/i', $value)) {
-                return $key;
-            }
-        }
-
-        throw new InvalidArgumentException(
-            'Undefined balcony type name: '.$balconyTypeName.'!'
-        );
+        return Finder::find($balconyTypeName, static::BALCONY_TYPE);
     }
 
     /**
@@ -281,19 +255,10 @@ class Flat implements AdvertInterface
      *
      * @param string $currencyTypeName
      * @return string
-     * @throws \InvalidArgumentException
      */
     public static function findCurrencyTypeByName(string $currencyTypeName): string
     {
-        foreach (static::CURRENCY_TYPE as $key => $value) {
-            if (preg_match('/'.$currencyTypeName.'/i', $value)) {
-                return $key;
-            }
-        }
-
-        throw new InvalidArgumentException(
-            'Undefined currency type name: '.$currencyTypeName.'!'
-        );
+        return Finder::find($currencyTypeName, static::CURRENCY_TYPE);
     }
 
     /**

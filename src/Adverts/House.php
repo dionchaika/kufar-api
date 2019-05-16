@@ -2,6 +2,7 @@
 
 namespace API\Kufar\Adverts;
 
+use API\Kufar\Finder;
 use Dionchaika\Http\Uri;
 use InvalidArgumentException;
 use API\Kufar\AdvertInterface;
@@ -221,19 +222,10 @@ class House implements AdvertInterface
      *
      * @param string $wallMaterialTypeName
      * @return int
-     * @throws \InvalidArgumentException
      */
     public static function findWallMaterialTypeByName(string $wallMaterialTypeName): int
     {
-        foreach (static::WALL_MATERIAL_TYPE as $key => $value) {
-            if (preg_match('/'.$wallMaterialTypeName.'/i', $value)) {
-                return $key;
-            }
-        }
-
-        throw new InvalidArgumentException(
-            'Undefined wall material type name: '.$wallMaterialTypeName.'!'
-        );
+        return Finder::find($wallMaterialTypeName, static::WALL_MATERIAL_TYPE);
     }
 
     /**
@@ -241,19 +233,10 @@ class House implements AdvertInterface
      *
      * @param string $currencyTypeName
      * @return string
-     * @throws \InvalidArgumentException
      */
     public static function findCurrencyTypeByName(string $currencyTypeName): string
     {
-        foreach (static::CURRENCY_TYPE as $key => $value) {
-            if (preg_match('/'.$currencyTypeName.'/i', $value)) {
-                return $key;
-            }
-        }
-
-        throw new InvalidArgumentException(
-            'Undefined currency type name: '.$currencyTypeName.'!'
-        );
+        return Finder::find($currencyTypeName, static::CURRENCY_TYPE);
     }
 
     /**

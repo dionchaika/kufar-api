@@ -2,6 +2,7 @@
 
 namespace API\Kufar\Adverts;
 
+use API\Kufar\Finder;
 use Dionchaika\Http\Uri;
 use InvalidArgumentException;
 use API\Kufar\AdvertInterface;

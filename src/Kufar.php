@@ -270,19 +270,10 @@ class Kufar
      *
      * @param string $regionName
      * @return int
-     * @throws \InvalidArgumentException
      */
     public static function findRegionByName(string $regionName): int
     {
-        foreach (static::REGION as $key => $value) {
-            if (preg_match('/'.$regionName.'/i', $value)) {
-                return $key;
-            }
-        }
-
-        throw new InvalidArgumentException(
-            'Undefined address region name: '.$regionName.'!'
-        );
+        return Finder::find($regionName, static::REGION);
     }
 
     /**
@@ -291,7 +282,6 @@ class Kufar
      * @param int    $region
      * @param string $areaName
      * @return int
-     * @throws \InvalidArgumentException
      */
     public static function findAreaByName(int $region, string $areaName): int
     {
@@ -307,9 +297,7 @@ class Kufar
             }
         }
 
-        throw new InvalidArgumentException(
-            'Undefined address area name: '.$areaName.'!'
-        );
+        return Finder::find($areaName, static::AREA[$region]);
     }
 
     /**
