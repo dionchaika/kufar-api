@@ -266,6 +266,53 @@ class Kufar
     }
 
     /**
+     * Find the address region by name.
+     *
+     * @param string $regionName
+     * @return int
+     * @throws \InvalidArgumentException
+     */
+    public static function findRegionByName(string $regionName): int
+    {
+        foreach (static::REGION as $key => $value) {
+            if (preg_match('/'.$regionName.'/i', $value)) {
+                return $key;
+            }
+        }
+
+        throw new InvalidArgumentException(
+            'Undefined address region name: '.$regionName.'!'
+        );
+    }
+
+    /**
+     * Find the address area by name.
+     *
+     * @param int    $region
+     * @param string $areaName
+     * @return int
+     * @throws \InvalidArgumentException
+     */
+    public static function findAreaByName(int $region, string $areaName): int
+    {
+        if (!in_array($region, array_keys(static::AREA))) {
+            throw new InvalidArgumentException(
+                'Invalid region!'
+            );
+        }
+
+        foreach (static::AREA[$region] as $key => $value) {
+            if (preg_match('/'.$areaName.'/i', $value)) {
+                return $key;
+            }
+        }
+
+        throw new InvalidArgumentException(
+            'Undefined address area name: '.$areaName.'!'
+        );
+    }
+
+    /**
      * Log in.
      *
      * @param string $user
@@ -595,52 +642,5 @@ class Kufar
             'address_tags' => implode(',', $data['data'][0]['tags'])
 
         ];
-    }
-
-    /**
-     * Find the address region by name.
-     *
-     * @param string $regionName
-     * @return int
-     * @throws \InvalidArgumentException
-     */
-    public function findRegionByName(string $regionName): int
-    {
-        foreach (self::REGION as $key => $value) {
-            if (preg_match('/'.$regionName.'/i', $value)) {
-                return $key;
-            }
-        }
-
-        throw new InvalidArgumentException(
-            'Undefined address region name: '.$regionName.'!'
-        );
-    }
-
-    /**
-     * Find the address area by name.
-     *
-     * @param int    $region
-     * @param string $areaName
-     * @return int
-     * @throws \InvalidArgumentException
-     */
-    public function findAreaByName(int $region, string $areaName): int
-    {
-        if (!in_array($region, array_keys(self::AREA))) {
-            throw new InvalidArgumentException(
-                'Invalid region!'
-            );
-        }
-
-        foreach (self::AREA[$region] as $key => $value) {
-            if (preg_match('/'.$areaName.'/i', $value)) {
-                return $key;
-            }
-        }
-
-        throw new InvalidArgumentException(
-            'Undefined address area name: '.$areaName.'!'
-        );
     }
 }
