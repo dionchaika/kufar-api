@@ -3,6 +3,7 @@
 namespace API\Kufar\Adverts;
 
 use Dionchaika\Http\Uri;
+use InvalidArgumentException;
 use API\Kufar\AdvertInterface;
 use Psr\Http\Message\RequestInterface;
 use Dionchaika\Http\Factory\RequestFactory;
