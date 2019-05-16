@@ -310,7 +310,7 @@ class Flat implements AdvertInterface
     {
         $data = $this->data;
         foreach ($data['ad'] as $key => $value) {
-            if (null === $value && 'delivery' !== $key) {
+            if (null === $value) {
                 unset($data['ad'][$key]);
             }
         }
