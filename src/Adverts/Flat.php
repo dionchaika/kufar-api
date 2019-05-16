@@ -71,7 +71,7 @@ class Flat implements AdvertInterface
 
         'ad' => [
 
-            'is_new_image'      => [true],
+            'is_new_image'      => [],
             'language'          => 'ru',
             'subject'           => null,
             'category'          => 1010,
@@ -345,7 +345,7 @@ class Flat implements AdvertInterface
     {
         $data = $this->data;
         foreach ($data['ad'] as $key => $value) {
-            if (null === $value) {
+            if (null === $value && 'delivery' !== $key) {
                 unset($data['ad'][$key]);
             }
         }

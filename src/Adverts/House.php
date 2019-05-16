@@ -22,7 +22,7 @@ class House implements AdvertInterface
 
         'ad' => [
 
-
+            
 
         ]
 
