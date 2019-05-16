@@ -24,9 +24,35 @@ class Office implements AdvertInterface
 
         'ad' => [
 
+            'is_new_image' => [],
+            'language' => 'ru',
+            'category' => 1050,
+            'type' => 'sell',
+            'size' => null,
+            'property_type' => null,
+            'condition' => 1,
+            'body' => null,
+            'price' => null,
+            'currency' => null,
+            'region' => null,
+            'area' => null,
+            'address' => null,
+            'name' => null,
+            'email' => null,
+            'phone' => null,
+            'contact_person' => null,
+            'company_address' => null,
+            'import_link' => null,
+            'vat_number' => null,
+            'company_number' => null,
+            'company_ad' => null,
+            'coordinates' => null,
+            'address_tags' => null,
+            'remuneration_type' => 1,
+            'images' => []
 
-
-        ]
+        ],
+        'delivery' => null
 
     ];
 

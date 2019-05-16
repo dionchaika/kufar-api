@@ -105,10 +105,10 @@ class Flat implements AdvertInterface
             'coordinates'       => null,
             'address_tags'      => null,
             'remuneration_type' => 1,
-            'images'            => [],
-            'delivery'          => null
+            'images'            => []
 
-        ]
+        ],
+        'delivery' => null
 
     ];
 
