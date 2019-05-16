@@ -85,6 +85,126 @@ class House implements AdvertInterface
     ];
 
     /**
+     * @param string      $subject
+     * @param int         $rooms
+     * @param string      $body
+     * @param int         $price
+     * @param string      $currency
+     * @param int         $region
+     * @param int         $area
+     * @param string      $address
+     * @param float|null  $size
+     * @param float|null  $sizeLivingSpace
+     * @param float|null  $sizeKitchen
+     * @param float|null  $sizeArea
+     * @param int|null    $yearBuilt
+     * @param int|null    $wallMaterial
+     * @param bool        $heating
+     * @param bool        $water
+     * @param bool        $gas
+     * @param bool        $sewage
+     * @param bool        $electricity
+     * @param bool        $pondRiver
+     * @param bool        $banya
+     * @param string[]    $images
+     * @param string[]    $phones
+     * @param string|null $contactPerson
+     * @param string|null $importLink
+     * @throws \InvalidArgumentException
+     */
+    public function __construct(
+        string $subject,
+        int $rooms,
+        string $body,
+        int $price,
+        string $currency,
+        int $region,
+        int $area,
+        string $address,
+        ?float $size            = null,
+        ?float $sizeLivingSpace = null,
+        ?float $sizeKitchen     = null,
+        ?float $sizeArea        = null,
+        ?int $yearBuilt         = null,
+        ?int $wallMaterial      = null,
+        bool $heating           = false,
+        bool $water             = false,
+        bool $gas               = false,
+        bool $sewage            = false,
+        bool $electricity       = false,
+        bool $pondRiver         = false,
+        bool $banya             = false,
+        array $images           = [],
+        array $phones           = [],
+        ?string $contactPerson  = null,
+        ?string $importLink     = null
+    ) {
+        if ('' === $subject) {
+            throw new InvalidArgumentException(
+                'Required field is not defined or empty: subject!'
+            );
+        }
+
+        $subject = mb_substr($subject, 0, 50);
+
+        if (20 > mb_strlen($body)) {
+            throw new InvalidArgumentException(
+                'Required field is not defined or empty: body!'
+            );
+        }
+
+        $body = mb_substr($body, 0, 4000);
+
+        if (5 < $rooms) {
+            $rooms = 5;
+        }
+
+        if (1980 > $yearBuilt) {
+            $yearBuilt = 1980;
+        } else if (2025 < $yearBuilt) {
+            $yearBuilt = 2025;
+        }
+
+        if (15 < count($images)) {
+            $images = array_splice($images, 15);
+        }
+
+        $phones = array_map(function ($phone) {
+            return preg_replace('/[^\d]/', '', $phone);
+        }, $phones);
+
+        if (3 < count($phones)) {
+            $phones = array_splice($phones, 3);
+        }
+
+        $this->data['ad']['subject']           = $subject;
+        $this->data['ad']['rooms']             = $rooms;
+        $this->data['ad']['body']              = $body;
+        $this->data['ad']['price']             = $price;
+        $this->data['ad']['currency']          = $currency;
+        $this->data['ad']['region']            = $region;
+        $this->data['ad']['area']              = $area;
+        $this->data['ad']['address']           = $address;
+        $this->data['ad']['size']              = $size;
+        $this->data['ad']['size_living_space'] = $sizeLivingSpace;
+        $this->data['ad']['size_kitchen']      = $sizeKitchen;
+        $this->data['ad']['size_area']         = $sizeArea;
+        $this->data['ad']['year_built']        = $yearBuilt;
+        $this->data['ad']['wall_material']     = $wallMaterial;
+        $this->data['ad']['heating']           = $heating ? 1 : null;
+        $this->data['ad']['water']             = $water ? 1 : null;
+        $this->data['ad']['gas']               = $gas ? 1 : null;
+        $this->data['ad']['sewage']            = $sewage ? 1 : null;
+        $this->data['ad']['electricity']       = $electricity ? 1 : null;
+        $this->data['ad']['pond_river']        = $pondRiver ? 1 : null;
+        $this->data['ad']['banya']             = $banya ? 1 : null;
+        $this->data['ad']['images']            = $images;
+        $this->data['ad']['phone']             = implode(',', $phones);
+        $this->data['ad']['contact_person']    = $contactPerson;
+        $this->data['ad']['import_link']       = $importLink;
+    }
+
+    /**
      * Find the wall material type by name.
      *
      * @param string $wallMaterialTypeName
