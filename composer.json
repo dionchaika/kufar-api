@@ -1,5 +1,21 @@
 {
     "name": "dionchaika/kufar-api",
+    "description": "The Unofficial www.kufar.by API",
+    "keywords": [
+        "php",
+        "api",
+        "kufar"
+    ],
+    "homepage": "https://github.com/dionchaika/kufar-api",
+    "version": "v1.0.0",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dion Chaika",
+            "email": "dionchaika@gmail.com"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "API\\Kufar\\": "src/"
