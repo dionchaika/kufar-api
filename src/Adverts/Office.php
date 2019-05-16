@@ -81,6 +81,23 @@ class Office implements AdvertInterface
 
     ];
 
+    /**
+     * @param string      $subject
+     * @param bool        $rent
+     * @param int         $propertyType
+     * @param string      $body
+     * @param int         $price
+     * @param string      $currency
+     * @param int         $region
+     * @param int         $area
+     * @param string      $address
+     * @param float|null  $size
+     * @param string[]    $images
+     * @param string[]    $phones
+     * @param string|null $contactPerson
+     * @param string|null $importLink
+     * @throws \InvalidArgumentException
+     */
     public function __construct(
         string $subject,
         bool $rent              = false,
