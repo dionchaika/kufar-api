@@ -265,7 +265,7 @@ class Flat implements AdvertInterface
      */
     public static function findBalconyTypeByName(string $balconyTypeName): int
     {
-        foreach (self::BALCONY_TYPE as $key => $value) {
+        foreach (static::BALCONY_TYPE as $key => $value) {
             if (preg_match('/'.$balconyTypeName.'/i', $value)) {
                 return $key;
             }
@@ -285,7 +285,7 @@ class Flat implements AdvertInterface
      */
     public static function findCurrencyTypeByName(string $currencyTypeName): int
     {
-        foreach (self::CURRENCY_TYPE as $key => $value) {
+        foreach (static::CURRENCY_TYPE as $key => $value) {
             if (preg_match('/'.$currencyTypeName.'/i', $value)) {
                 return $key;
             }
