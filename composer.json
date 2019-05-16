@@ -4,6 +4,8 @@
             "API\\Kufar\\": "src/"
         }
     },
+    "prefer-stable": true,
+    "minimum-stability": "dev",
     "require": {
         "dionchaika/http": "dev-master"
     }
