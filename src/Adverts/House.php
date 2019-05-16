@@ -239,10 +239,10 @@ class House implements AdvertInterface
      * Find the currency type by name.
      *
      * @param string $currencyTypeName
-     * @return int
+     * @return string
      * @throws \InvalidArgumentException
      */
-    public static function findCurrencyTypeByName(string $currencyTypeName): int
+    public static function findCurrencyTypeByName(string $currencyTypeName): string
     {
         foreach (static::CURRENCY_TYPE as $key => $value) {
             if (preg_match('/'.$currencyTypeName.'/i', $value)) {
