@@ -63,7 +63,7 @@ try {
     $kufar->login($user, $password);
 
     $flatAdvert->setAccountInfo($kufar->getAccountInfo());
-    $flatAdvert->->setAddressInfo($kufar->getAddressInfo('Брест', 'Брест', 'МОПРа ул.'));
+    $flatAdvert->setAddressInfo($kufar->getAddressInfo('Брест', 'Брест', 'МОПРа ул.'));
 
     $result = $kufar->postAdvert($flatAdvert);
 
