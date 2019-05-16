@@ -1,4 +1,5 @@
 {
+    "name": "dionchaika/kufar-api",
     "autoload": {
         "psr-4": {
             "API\\Kufar\\": "src/"
