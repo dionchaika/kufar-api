@@ -285,7 +285,7 @@ class Kufar
      */
     public static function findAreaByName(int $region, string $areaName): int
     {
-        if (!in_array($region, array_keys(static::AREA))) {
+        if (!array_key_exists($region, static::AREA)) {
             throw new InvalidArgumentException(
                 'Invalid region!'
             );
@@ -575,7 +575,7 @@ class Kufar
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
-    public function getAddressInfo(string $region, string $area, string $address): array
+    public function getAddressInfo(int $region, int $area, string $address): array
     {
         if (!$this->loggedIn) {
             throw new RuntimeException(

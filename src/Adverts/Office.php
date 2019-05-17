@@ -167,7 +167,7 @@ class Office implements AdvertInterface
      * @param string $propertyTypeName
      * @return int
      */
-    public static function findpropertyTypeByName(string $propertyTypeName): int
+    public static function findPropertyTypeByName(string $propertyTypeName): int
     {
         return Finder::suggestKey($propertyTypeName, static::PROPERTY_TYPE);
     }

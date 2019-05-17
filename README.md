@@ -38,8 +38,8 @@ $flatAdvert = new Flat(
     '1- комнатная квартира, г. Брест, МОПРа ул., 1978 г.п. Лот 390267',
     29900,
     Flat::findCurrencyTypeByName('$'),
-    $region = Kufar::findRegionByName('Брест'),
-    Kufar::findAreaByName($region, 'Брест'),
+    $region = Kufar::findRegionByName('Брестская область'),
+    $area = Kufar::findAreaByName($region, 'Брест'),
     'МОПРа ул.',
     4,
     41.7,
@@ -63,7 +63,7 @@ try {
     $kufar->login($user, $password);
 
     $flatAdvert->setAccountInfo($kufar->getAccountInfo());
-    $flatAdvert->setAddressInfo($kufar->getAddressInfo('Брест', 'Брест', 'МОПРа ул.'));
+    $flatAdvert->setAddressInfo($kufar->getAddressInfo($region, $area, 'МОПРа ул.'));
 
     $result = $kufar->postAdvert($flatAdvert);
 
@@ -75,7 +75,7 @@ try {
 
 } catch (Throwable $e) {
 
-    echo 'Some error occurred: '.$e->getMessage();
+    echo 'Something wrong is going on: '.$e->getMessage();
     exit(-1);
 
 }

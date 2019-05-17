@@ -2,6 +2,9 @@
 
 namespace API\Kufar;
 
+/**
+ * The selections helper class.
+ */
 abstract class Finder
 {
     /**
