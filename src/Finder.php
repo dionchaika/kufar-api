@@ -5,32 +5,50 @@ namespace API\Kufar;
 abstract class Finder
 {
     /**
-     * Find a value
-     * in the array and
-     * return found value key.
+     * Suggest an array key.
      *
-     * @param string  $value
-     * @param mixed[] $values
+     * @param string  $query
+     * @param mixed[] $suggestions
      * @return mixed
      */
-    public static function find(string $value, array $values)
+    public static function suggestKey(string $query, array $suggestions)
     {
-        $value = strtolower($value);
-        $shortest = -1;
+        $query = trim(mb_strtolower($query));
 
-        foreach ($values as $k => $v) {
-            $levenshtein = levenshtein(strtolower($v), $value);
-
-            if (0 === $levenshtein) {
-                return $k;
+        $map = [];
+        foreach ($suggestions as $key => $value) {
+            if ($query === $value) {
+                return $key;
             }
 
-            if ($levenshtein <= $shortest || 0 > $shortest) {
-                $closest = $k;
-                $shortest = $levenshtein;
-            }
+            similar_text($query, trim(mb_strtolower($value)), $percent);
+            $map[$key] = $percent;
         }
 
-        return $closest;
+        return array_search(max(array_values($map)), $map);
+    }
+
+    /**
+     * Suggest an array value.
+     *
+     * @param string  $query
+     * @param mixed[] $suggestions
+     * @return string
+     */
+    public static function suggestValue(string $query, array $suggestions)
+    {
+        $query = trim(mb_strtolower($query));
+
+        $map = [];
+        foreach ($suggestions as $key => $value) {
+            if ($query === $value) {
+                return $value;
+            }
+
+            similar_text($query, trim(mb_strtolower($value)), $percent);
+            $map[$key] = $percent;
+        }
+
+        return $suggestions[array_search(max(array_values($map)), $map)];
     }
 }
