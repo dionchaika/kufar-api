@@ -273,7 +273,7 @@ class Kufar
      */
     public static function findRegionByName(string $regionName): int
     {
-        return Finder::find($regionName, static::REGION);
+        return Finder::suggestKey($regionName, static::REGION);
     }
 
     /**
@@ -291,13 +291,7 @@ class Kufar
             );
         }
 
-        foreach (static::AREA[$region] as $key => $value) {
-            if (preg_match('/'.$areaName.'/i', $value)) {
-                return $key;
-            }
-        }
-
-        return Finder::find($areaName, static::AREA[$region]);
+        return Finder::suggestKey($areaName, static::AREA[$region]);
     }
 
     /**

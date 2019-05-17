@@ -169,7 +169,7 @@ class Office implements AdvertInterface
      */
     public static function findpropertyTypeByName(string $propertyTypeName): int
     {
-        return Finder::find($propertyTypeName, static::PROPERTY_TYPE);
+        return Finder::suggestKey($propertyTypeName, static::PROPERTY_TYPE);
     }
 
     /**
@@ -180,7 +180,7 @@ class Office implements AdvertInterface
      */
     public static function findCurrencyTypeByName(string $currencyTypeName): string
     {
-        return Finder::find($currencyTypeName, static::CURRENCY_TYPE);
+        return Finder::suggestKey($currencyTypeName, static::CURRENCY_TYPE);
     }
 
     /**

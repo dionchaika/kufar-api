@@ -225,7 +225,7 @@ class House implements AdvertInterface
      */
     public static function findWallMaterialTypeByName(string $wallMaterialTypeName): int
     {
-        return Finder::find($wallMaterialTypeName, static::WALL_MATERIAL_TYPE);
+        return Finder::suggestKey($wallMaterialTypeName, static::WALL_MATERIAL_TYPE);
     }
 
     /**
@@ -236,7 +236,7 @@ class House implements AdvertInterface
      */
     public static function findCurrencyTypeByName(string $currencyTypeName): string
     {
-        return Finder::find($currencyTypeName, static::CURRENCY_TYPE);
+        return Finder::suggestKey($currencyTypeName, static::CURRENCY_TYPE);
     }
 
     /**

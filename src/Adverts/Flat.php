@@ -225,7 +225,7 @@ class Flat implements AdvertInterface
      */
     public static function findHouseTypeByName(string $houseTypeName): int
     {
-        return Finder::find($houseTypeName, static::HOUSE_TYPE);
+        return Finder::suggestKey($houseTypeName, static::HOUSE_TYPE);
     }
 
     /**
@@ -236,7 +236,7 @@ class Flat implements AdvertInterface
      */
     public static function findBathroomTypeByName(string $bathroomTypeName): int
     {
-        return Finder::find($bathroomTypeName, static::BATHROOM_TYPE);
+        return Finder::suggestKey($bathroomTypeName, static::BATHROOM_TYPE);
     }
 
     /**
@@ -247,7 +247,7 @@ class Flat implements AdvertInterface
      */
     public static function findBalconyTypeByName(string $balconyTypeName): int
     {
-        return Finder::find($balconyTypeName, static::BALCONY_TYPE);
+        return Finder::suggestKey($balconyTypeName, static::BALCONY_TYPE);
     }
 
     /**
@@ -258,7 +258,7 @@ class Flat implements AdvertInterface
      */
     public static function findCurrencyTypeByName(string $currencyTypeName): string
     {
-        return Finder::find($currencyTypeName, static::CURRENCY_TYPE);
+        return Finder::suggestKey($currencyTypeName, static::CURRENCY_TYPE);
     }
 
     /**
