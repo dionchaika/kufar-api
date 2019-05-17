@@ -568,8 +568,8 @@ class Kufar
      *          ]
      *      </code>
      *
-     * @param string $region
-     * @param string $area
+     * @param int    $region
+     * @param int    $area
      * @param string $address
      * @return mixed[]
      * @throws \RuntimeException
@@ -583,27 +583,24 @@ class Kufar
             );
         }
 
-        if (!in_array($region, array_values(self::REGION))) {
+        if (!array_key_exists($region, self::REGION)) {
             throw new InvalidArgumentException(
                 'Invalid region!'
             );
         }
 
-        foreach (self::REGION as $key => $value) {
-            if ($region === $value) {
-                $regionCode = $key;
-                break;
-            }
-        }
+        $regionName = self::REGION[$region];
 
-        if (!in_array($area, array_values(self::AREA[$regionCode]))) {
+        if (!array_key_exists($area, self::AREA[$region])) {
             throw new InvalidArgumentException(
                 'Invalid area!'
             );
         }
 
+        $areaName = self::AREA[$region][$area];
+
         $uri = (new Uri('https://geocoder.kufar.by/search/get_suggestions'))
-            ->withQuery('city='.urlencode($area).'&query='.urlencode($address).'&region='.urlencode($region));
+            ->withQuery('city='.urlencode($areaName).'&query='.urlencode($address).'&region='.urlencode($regionName));
         try {
             $response = $this->client->sendRequest($this->factory->createRequest('GET', $uri));
         } catch (ClientExceptionInterface $e) {
