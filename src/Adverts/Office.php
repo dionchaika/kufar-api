@@ -239,7 +239,7 @@ class Office implements AdvertInterface
 
         $uri = new Uri('https://www.kufar.by/react/api/cre/ad-insertion/v1/processing/insert');
         return (new RequestFactory)
-            ->createJsonRequest('POST', $uri, $data, [\JSON_NUMERIC_CHECK, \JSON_UNESCAPED_SLASHES, \JSON_UNESCAPED_UNICODE, \JSON_PRETTY_PRINT])
+            ->createJsonRequest('POST', $uri, $data, [\JSON_PRETTY_PRINT, \JSON_UNESCAPED_SLASHES, \JSON_UNESCAPED_UNICODE])
             ->withHeader('X-segmentation', 'routing=web_ad_insertion;application=ad_insertion;platform=web');
     }
 }
