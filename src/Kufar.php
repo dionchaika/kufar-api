@@ -237,8 +237,10 @@ class Kufar
     protected $loggedIn = false;
 
     /**
-     * @param bool        $debug
-     * @param string|null $debugFile
+     * The API constructor.
+     *
+     * @param  bool  $debug
+     * @param  string|null  $debugFile
      */
     public function __construct(bool $debug = false, ?string $debugFile = null)
     {
@@ -268,7 +270,7 @@ class Kufar
     /**
      * Find the address region by name.
      *
-     * @param string $regionName
+     * @param  string  $regionName
      * @return int
      */
     public static function findRegionByName(string $regionName): int
@@ -279,16 +281,14 @@ class Kufar
     /**
      * Find the address area by name.
      *
-     * @param int    $region
-     * @param string $areaName
+     * @param  int  $region
+     * @param  string  $areaName
      * @return int
      */
     public static function findAreaByName(int $region, string $areaName): int
     {
-        if (!array_key_exists($region, static::AREA)) {
-            throw new InvalidArgumentException(
-                'Invalid region!'
-            );
+        if (! array_key_exists($region, static::AREA)) {
+            throw new InvalidArgumentException('Invalid region!');
         }
 
         return Finder::suggestKey($areaName, static::AREA[$region]);
@@ -297,9 +297,10 @@ class Kufar
     /**
      * Log in.
      *
-     * @param string $user
-     * @param string $password
+     * @param  string  $user
+     * @param  string  $password
      * @return void
+     *
      * @throws \RuntimeException
      */
     public function login(string $user, string $password): void
@@ -312,9 +313,7 @@ class Kufar
         }
 
         if (200 !== $response->getStatusCode()) {
-            throw new RuntimeException(
-                'Error loading page: '.$uri.'!'
-            );
+            throw new RuntimeException('Error loading page: '.$uri.'!');
         }
 
         $data = [
@@ -332,9 +331,7 @@ class Kufar
         }
 
         if (200 !== $response->getStatusCode()) {
-            throw new RuntimeException(
-                'Login error!'
-            );
+            throw new RuntimeException('Login error!');
         }
 
         $this->loggedIn = true;
@@ -399,17 +396,16 @@ class Kufar
      *          ]
      *      </code>
      *
-     * @param \API\Kufar\AdvertInterface $advert
+     * @param  \API\Kufar\AdvertInterface  $advert
      * @return mixed[]
+     *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
     public function postAdvert(AdvertInterface $advert): array
     {
-        if (!$this->loggedIn) {
-            throw new RuntimeException(
-                'Client is not logged in!'
-            );
+        if (! $this->loggedIn) {
+            throw new RuntimeException('Client is not logged in!');
         }
 
         $uri = new Uri('https://www.kufar.by/ain/create');
@@ -420,9 +416,7 @@ class Kufar
         }
 
         if (200 !== $response->getStatusCode()) {
-            throw new RuntimeException(
-                'Error loading page: '.$uri.'!'
-            );
+            throw new RuntimeException('Error loading page: '.$uri.'!');
         }
 
         try {
@@ -447,29 +441,24 @@ class Kufar
      *          ]
      *      </code>
      *
-     * @param string $filename
+     * @param  string  $filename
      * @return mixed[]
+     *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
     public function uploadImage(string $filename): array
     {
-        if (!$this->loggedIn) {
-            throw new RuntimeException(
-                'Client is not logged in!'
-            );
+        if (! $this->loggedIn) {
+            throw new RuntimeException('Client is not logged in!');
         }
 
-        if (!file_exists($filename)) {
-            throw new InvalidArgumentException(
-                'File does not exists: '.$filename.'!'
-            );
+        if (! file_exists($filename)) {
+            throw new InvalidArgumentException('File does not exists: '.$filename.'!');
         }
 
         if (10485760 < filesize($filename)) {
-            throw new InvalidArgumentException(
-                'File size can not be greater than 10 MB!'
-            );
+            throw new InvalidArgumentException('File size can not be greater than 10 MB!');
         }
 
         $formData = (new FormData)
@@ -484,9 +473,7 @@ class Kufar
         }
 
         if (200 !== $response->getStatusCode()) {
-            throw new RuntimeException(
-                'Error uploading image!'
-            );
+            throw new RuntimeException('Error uploading image!');
         }
 
         return json_decode($response->getBody(), \JSON_OBJECT_AS_ARRAY)[0];
@@ -529,14 +516,13 @@ class Kufar
      *      </code>
      *
      * @return mixed[]
+     *
      * @throws \RuntimeException
      */
     public function getAccountInfo(): array
     {
-        if (!$this->loggedIn) {
-            throw new RuntimeException(
-                'Client is not logged in!'
-            );
+        if (! $this->loggedIn) {
+            throw new RuntimeException('Client is not logged in!');
         }
 
         $uri = new Uri('https://www.kufar.by/react/api/user?apiName=account_info');
@@ -547,9 +533,7 @@ class Kufar
         }
 
         if (200 !== $response->getStatusCode()) {
-            throw new RuntimeException(
-                'Error getting account info!'
-            );
+            throw new RuntimeException('Error getting account info!');
         }
 
         return json_decode($response->getBody(), \JSON_OBJECT_AS_ARRAY);
@@ -568,33 +552,28 @@ class Kufar
      *          ]
      *      </code>
      *
-     * @param int    $region
-     * @param int    $area
-     * @param string $address
+     * @param  int  $region
+     * @param  int  $area
+     * @param  string  $address
      * @return mixed[]
+     *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
     public function getAddressInfo(int $region, int $area, string $address): array
     {
-        if (!$this->loggedIn) {
-            throw new RuntimeException(
-                'Client is not logged in!'
-            );
+        if (! $this->loggedIn) {
+            throw new RuntimeException('Client is not logged in!');
         }
 
-        if (!array_key_exists($region, self::REGION)) {
-            throw new InvalidArgumentException(
-                'Invalid region!'
-            );
+        if (! array_key_exists($region, self::REGION)) {
+            throw new InvalidArgumentException('Invalid region!');
         }
 
         $regionName = self::REGION[$region];
 
-        if (!array_key_exists($area, self::AREA[$region])) {
-            throw new InvalidArgumentException(
-                'Invalid area!'
-            );
+        if (! array_key_exists($area, self::AREA[$region])) {
+            throw new InvalidArgumentException('Invalid area!');
         }
 
         $areaName = self::AREA[$region][$area];
@@ -608,9 +587,7 @@ class Kufar
         }
 
         if (200 !== $response->getStatusCode()) {
-            throw new RuntimeException(
-                'Error getting address info!'
-            );
+            throw new RuntimeException('Error getting address info!');
         }
 
         $data = json_decode($response->getBody(), \JSON_OBJECT_AS_ARRAY);
