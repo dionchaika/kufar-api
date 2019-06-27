@@ -19,7 +19,10 @@
     "autoload": {
         "psr-4": {
             "API\\Kufar\\": "src/"
-        }
+        },
+        "files": [
+            "src/simplehtmldom/simplehtmldom.php"
+        ]
     },
     "prefer-stable": true,
     "minimum-stability": "dev",

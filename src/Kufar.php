@@ -429,6 +429,35 @@ class Kufar
     }
 
     /**
+     * Get the adverts.
+     *
+     * @return mixed[]
+     *
+     * @throws \RuntimeException
+     */
+    public function getAdverts(): array
+    {
+        if (! $this->loggedIn) {
+            throw new RuntimeException('Client is not logged in!');
+        }
+
+        $published = $deactivated = [];
+
+        $uri = new Uri('https://www.kufar.by/account/my_ads/published');
+        try {
+            $response = $this->client->sendRequest($this->factory->createRequest('GET', $uri));
+        } catch (ClientExceptionInterface $e) {
+            throw new RuntimeException($e->getMessage());
+        }
+
+        if (200 !== $response->getStatusCode()) {
+            throw new RuntimeException('Error loading page: '.$uri.'!');
+        }
+
+        
+    }
+
+    /**
      * Upload an image.
      *
      * Return data example:
