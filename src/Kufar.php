@@ -454,7 +454,7 @@ class Kufar
             throw new RuntimeException('Error loading page: '.$uri.'!');
         }
 
-        
+        $html = str_get_html($response->getBody());
     }
 
     /**

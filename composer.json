@@ -21,7 +21,7 @@
             "API\\Kufar\\": "src/"
         },
         "files": [
-            "src/simplehtmldom/simplehtmldom.php"
+            "src/simple_html_dom/simple_html_dom.php"
         ]
     },
     "prefer-stable": true,
