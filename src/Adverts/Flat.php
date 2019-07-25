@@ -184,7 +184,7 @@ class Flat implements AdvertInterface
         }
 
         if (15 < count($images)) {
-            $images = array_splice($images, 15);
+            $images = array_slice($images, 0, 15);
         }
 
         $phones = array_map(function ($phone) {
@@ -192,7 +192,7 @@ class Flat implements AdvertInterface
         }, $phones);
 
         if (3 < count($phones)) {
-            $phones = array_splice($phones, 3);
+            $phones = array_slice($phones, 0, 3);
         }
 
         $this->data['ad']['subject']           = $subject;
